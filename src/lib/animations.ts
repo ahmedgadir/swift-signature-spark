@@ -73,6 +73,24 @@ export const staggerContainer = (staggerChildren: number, delayChildren = 0) => 
   },
 });
 
+// New subtle pulse animation
+export const pulseSlow = {
+  initial: { 
+    opacity: 0.7,
+    scale: 0.97
+  },
+  animate: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 2,
+      repeat: Infinity,
+      repeatType: "reverse",
+      ease: "easeInOut",
+    },
+  },
+};
+
 // Utility function to initialize animation observers
 export const initAnimationObservers = () => {
   if (typeof window !== 'undefined') {
