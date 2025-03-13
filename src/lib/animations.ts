@@ -1,149 +1,59 @@
 
-export const fadeIn = (delay = 0, duration = 0.3) => ({
-  hidden: { 
-    opacity: 0,
-    y: 20
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay,
-      duration,
-      ease: "easeOut",
-    },
-  },
-});
+import { MotionProps } from 'framer-motion';
 
-export const fadeInLeft = (delay = 0, duration = 0.3) => ({
-  hidden: { 
-    opacity: 0,
-    x: -20
-  },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      delay,
-      duration,
-      ease: "easeOut",
-    },
-  },
-});
-
-export const fadeInRight = (delay = 0, duration = 0.3) => ({
-  hidden: { 
-    opacity: 0,
-    x: 20
-  },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      delay,
-      duration,
-      ease: "easeOut",
-    },
-  },
-});
-
-export const scaleUp = (delay = 0, duration = 0.3) => ({
-  hidden: { 
-    opacity: 0,
-    scale: 0.95
-  },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      delay,
-      duration,
-      ease: "easeOut",
-    },
-  },
-});
-
-export const staggerContainer = (staggerChildren: number, delayChildren = 0) => ({
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren,
-      delayChildren,
-    },
-  },
-});
-
-// Improved subtle pulse animation with better values
-export const pulseSlow = {
-  initial: { 
-    opacity: 0.9,
-    scale: 0.99
-  },
-  animate: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      duration: 2.5,
-      repeat: Infinity,
-      repeatType: "reverse",
-      ease: "easeInOut",
-    },
-  },
-};
-
-// New floating animation
+// Animation constants
 export const floatAnimation = {
-  initial: { y: 0 },
-  animate: {
-    y: [-5, 5, -5],
-    transition: {
-      duration: 5,
-      repeat: Infinity,
-      repeatType: "loop",
-      ease: "easeInOut",
-    },
-  },
-};
-
-// New shine effect animation
-export const shineEffect = {
-  initial: { 
-    background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)",
-    backgroundSize: "200% 100%",
-    backgroundPosition: "100% 0"
-  },
-  animate: {
-    backgroundPosition: ["100% 0", "-100% 0"],
-    transition: {
-      duration: 4,
-      repeat: Infinity,
-      repeatType: "loop",
-      ease: "easeInOut",
-    },
-  },
-};
-
-// Utility function to initialize animation observers
-export const initAnimationObservers = () => {
-  if (typeof window !== 'undefined') {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    
-    const elements = document.querySelectorAll('.animate-on-scroll');
-    elements.forEach((el) => observer.observe(el));
-    
-    return () => {
-      elements.forEach((el) => observer.unobserve(el));
-    };
+  style: {
+    animation: 'float 6s ease-in-out infinite',
   }
-  
-  return () => {};
+};
+
+export const pulseSlow = {
+  initial: { scale: 1 },
+  animate: { 
+    scale: [1, 1.05, 1],
+    opacity: [0.8, 1, 0.8],
+  },
+  transition: { 
+    duration: 2,
+    repeat: Infinity,
+    repeatType: "reverse" as const,
+  }
+};
+
+export const shineEffect = {
+  initial: { x: '-100%' },
+  animate: { x: '200%' },
+  transition: { 
+    duration: 1.5,
+    repeat: Infinity,
+    repeatDelay: 3,
+  }
+};
+
+/**
+ * Initializes animation observers for elements with animation classes
+ * @returns A cleanup function to disconnect observers
+ */
+export const initAnimationObservers = () => {
+  const fadeObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-fade-in');
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+  );
+
+  // Select elements with the animate-on-scroll class and observe them
+  const animateElements = document.querySelectorAll('.animate-on-scroll');
+  animateElements.forEach((el) => fadeObserver.observe(el));
+
+  // Cleanup function
+  return () => {
+    fadeObserver.disconnect();
+  };
 };
