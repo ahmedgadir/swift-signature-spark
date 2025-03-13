@@ -171,7 +171,7 @@ const Hero = () => {
             </div>
           </motion.div>
           
-          {/* Right Column - Animation moved to bottom right corner */}
+          {/* Right Column - Animation in proper position */}
           <motion.div 
             className="relative h-full"
             initial={{ opacity: 0, x: 20 }}
@@ -179,8 +179,8 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
             style={floatAnimation.style}
           >
-            {/* Positioning the animation in the bottom right corner */}
-            <div className="absolute bottom-0 right-0 w-[90%] max-w-md">
+            {/* Repositioned animation to avoid overlap */}
+            <div className="absolute bottom-[-100px] right-0 w-[90%] max-w-md">
               {/* Main card with subtle improved glass effect */}
               <div className="glass-card rounded-2xl overflow-hidden border border-white/40 shadow-2xl">
                 <div className="w-full aspect-[4/3] relative bg-gradient-to-br from-primary/5 via-primary/10 to-primary/5 p-4 sm:p-6">
