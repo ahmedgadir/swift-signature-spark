@@ -72,7 +72,8 @@ const Hero = () => {
       </div>
       
       <div className="container px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        {/* Two-column layout with clear separation */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Left Column - Text Content */}
           <motion.div 
             className="flex flex-col"
@@ -171,16 +172,15 @@ const Hero = () => {
             </div>
           </motion.div>
           
-          {/* Right Column - Animation in proper position */}
+          {/* Right Column - Animation contained within its column */}
           <motion.div 
-            className="relative h-full"
+            className="relative flex items-center justify-center h-full"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            style={floatAnimation.style}
           >
-            {/* Repositioned animation to avoid overlap */}
-            <div className="absolute bottom-[-100px] right-0 w-[90%] max-w-md">
+            {/* Animation positioned properly within the right column */}
+            <div className="w-full max-w-md relative">
               {/* Main card with subtle improved glass effect */}
               <div className="glass-card rounded-2xl overflow-hidden border border-white/40 shadow-2xl">
                 <div className="w-full aspect-[4/3] relative bg-gradient-to-br from-primary/5 via-primary/10 to-primary/5 p-4 sm:p-6">
