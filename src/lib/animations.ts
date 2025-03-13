@@ -73,19 +73,51 @@ export const staggerContainer = (staggerChildren: number, delayChildren = 0) => 
   },
 });
 
-// New subtle pulse animation
+// Improved subtle pulse animation with better values
 export const pulseSlow = {
   initial: { 
-    opacity: 0.7,
-    scale: 0.97
+    opacity: 0.9,
+    scale: 0.99
   },
   animate: {
     opacity: 1,
     scale: 1,
     transition: {
-      duration: 2,
+      duration: 2.5,
       repeat: Infinity,
       repeatType: "reverse",
+      ease: "easeInOut",
+    },
+  },
+};
+
+// New floating animation
+export const floatAnimation = {
+  initial: { y: 0 },
+  animate: {
+    y: [-5, 5, -5],
+    transition: {
+      duration: 5,
+      repeat: Infinity,
+      repeatType: "loop",
+      ease: "easeInOut",
+    },
+  },
+};
+
+// New shine effect animation
+export const shineEffect = {
+  initial: { 
+    background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)",
+    backgroundSize: "200% 100%",
+    backgroundPosition: "100% 0"
+  },
+  animate: {
+    backgroundPosition: ["100% 0", "-100% 0"],
+    transition: {
+      duration: 4,
+      repeat: Infinity,
+      repeatType: "loop",
       ease: "easeInOut",
     },
   },
