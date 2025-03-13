@@ -72,7 +72,7 @@ const Hero = () => {
       </div>
       
       <div className="container px-4">
-        {/* Two-column layout with clear separation */}
+        {/* Clear two-column layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Left Column - Text Content */}
           <motion.div 
@@ -142,7 +142,7 @@ const Hero = () => {
               </Button>
             </motion.div>
             
-            {/* Stats moved to single row below CTA */}
+            {/* Stats */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-xl">
               {[
                 { value: "93%", label: "Time saved" },
@@ -172,69 +172,69 @@ const Hero = () => {
             </div>
           </motion.div>
           
-          {/* Right Column - Animation contained within its column */}
+          {/* Right Column - Animation */}
           <motion.div 
             className="relative flex items-center justify-center h-full"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            {/* Animation positioned properly within the right column */}
-            <div className="w-full max-w-md relative">
-              {/* Main card with subtle improved glass effect */}
+            {/* How it Works animation */}
+            <div className="w-full max-w-md mx-auto">
+              {/* Main card with glass effect */}
               <div className="glass-card rounded-2xl overflow-hidden border border-white/40 shadow-2xl">
-                <div className="w-full aspect-[4/3] relative bg-gradient-to-br from-primary/5 via-primary/10 to-primary/5 p-4 sm:p-6">
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-50"></div>
-                  
+                <div className="bg-gradient-to-br from-primary/5 via-primary/10 to-primary/5 p-4 sm:p-6">
                   {/* E-Signature Process Animation */}
-                  <div className="relative h-full flex items-center justify-center">
-                    <div className="w-full max-w-lg">
-                      <h3 className="text-lg sm:text-xl font-medium mb-4 text-center">
-                        Simple, Secure, and 
-                        <motion.span 
-                          className="text-primary ml-1.5"
-                          animate={{ 
-                            opacity: [0.8, 1, 0.8],
-                          }}
-                          transition={{ 
+                  <div className="relative">
+                    {/* Title visible on all steps */}
+                    <h3 className="text-lg sm:text-xl font-medium mb-4 text-center">
+                      Simple, Secure, and 
+                      <motion.span 
+                        className="text-primary ml-1.5"
+                        animate={{ 
+                          opacity: [0.8, 1, 0.8],
+                        }}
+                        transition={{ 
+                          duration: 2,
+                          repeat: Infinity,
+                          repeatType: "reverse",
+                        }}
+                      >
+                        Legally Binding
+                      </motion.span>
+                    </h3>
+                    
+                    {/* Progress steps */}
+                    <div className="grid grid-cols-4 gap-4 mb-6">
+                      {[0, 1, 2, 3].map((step) => (
+                        <motion.div 
+                          key={step} 
+                          className={cn(
+                            "relative h-1.5 rounded-full",
+                            animationStep >= step ? "bg-primary" : "bg-gray-300/50"
+                          )}
+                          animate={animationStep === step ? {
+                            scale: [1, 1.05, 1],
+                            opacity: [0.8, 1, 0.8]
+                          } : {}}
+                          transition={{
                             duration: 2,
-                            repeat: Infinity,
+                            repeat: animationStep === step ? Infinity : 0,
                             repeatType: "reverse",
                           }}
-                        >
-                          Legally Binding
-                        </motion.span>
-                      </h3>
-                      
-                      {/* Enhanced Animation Steps */}
-                      <div className="grid grid-cols-4 gap-4 mb-4">
-                        {[0, 1, 2, 3].map((step) => (
-                          <motion.div 
-                            key={step} 
-                            className={cn(
-                              "relative h-1.5 rounded-full",
-                              animationStep >= step ? "bg-primary" : "bg-gray-300/50"
-                            )}
-                            animate={animationStep === step ? {
-                              scale: [1, 1.05, 1],
-                              opacity: [0.8, 1, 0.8]
-                            } : {}}
-                            transition={{
-                              duration: 2,
-                              repeat: animationStep === step ? Infinity : 0,
-                              repeatType: "reverse",
-                            }}
-                          />
-                        ))}
-                      </div>
-                      
-                      {/* Step 1: Upload - Enhanced with motion */}
+                        />
+                      ))}
+                    </div>
+                    
+                    {/* Content area with fixed height to prevent layout shifts */}
+                    <div className="relative h-[220px]">
+                      {/* Step 1: Upload */}
                       <div className={cn(
-                        "absolute inset-0 flex items-center justify-center transition-opacity duration-500 pt-16",
+                        "absolute inset-0 transition-opacity duration-500",
                         animationStep === 0 ? "opacity-100" : "opacity-0 pointer-events-none"
                       )}>
                         <motion.div 
-                          className="glass-card p-4 rounded-xl max-w-md flex flex-col items-center text-center border border-white/30"
+                          className="glass-card p-4 rounded-xl flex flex-col items-center text-center border border-white/30"
                           initial={{ scale: 0.95, opacity: 0 }}
                           animate={animationStep === 0 ? { scale: 1, opacity: 1 } : { scale: 0.95, opacity: 0 }}
                           transition={{ duration: 0.5 }}
@@ -265,13 +265,13 @@ const Hero = () => {
                         </motion.div>
                       </div>
                       
-                      {/* Step 2: Add Recipients - Enhanced with motion */}
+                      {/* Step 2: Add Recipients */}
                       <div className={cn(
-                        "absolute inset-0 flex items-center justify-center transition-opacity duration-500 pt-16",
+                        "absolute inset-0 transition-opacity duration-500",
                         animationStep === 1 ? "opacity-100" : "opacity-0 pointer-events-none"
                       )}>
                         <motion.div 
-                          className="glass-card p-4 rounded-xl max-w-md flex flex-col items-center text-center border border-white/30"
+                          className="glass-card p-4 rounded-xl flex flex-col items-center text-center border border-white/30"
                           initial={{ scale: 0.95, opacity: 0 }}
                           animate={animationStep === 1 ? { scale: 1, opacity: 1 } : { scale: 0.95, opacity: 0 }}
                           transition={{ duration: 0.5 }}
@@ -315,13 +315,13 @@ const Hero = () => {
                         </motion.div>
                       </div>
                       
-                      {/* Step 3: Sign - Enhanced with motion */}
+                      {/* Step 3: Sign */}
                       <div className={cn(
-                        "absolute inset-0 flex items-center justify-center transition-opacity duration-500 pt-16",
+                        "absolute inset-0 transition-opacity duration-500",
                         animationStep === 2 ? "opacity-100" : "opacity-0 pointer-events-none"
                       )}>
                         <motion.div 
-                          className="glass-card p-4 rounded-xl max-w-md flex flex-col items-center text-center border border-white/30"
+                          className="glass-card p-4 rounded-xl flex flex-col items-center text-center border border-white/30"
                           initial={{ scale: 0.95, opacity: 0 }}
                           animate={animationStep === 2 ? { scale: 1, opacity: 1 } : { scale: 0.95, opacity: 0 }}
                           transition={{ duration: 0.5 }}
@@ -372,13 +372,13 @@ const Hero = () => {
                         </motion.div>
                       </div>
                       
-                      {/* Step 4: Complete - Enhanced with motion */}
+                      {/* Step 4: Complete */}
                       <div className={cn(
-                        "absolute inset-0 flex items-center justify-center transition-opacity duration-500 pt-16",
+                        "absolute inset-0 transition-opacity duration-500",
                         animationStep === 3 ? "opacity-100" : "opacity-0 pointer-events-none"
                       )}>
                         <motion.div 
-                          className="glass-card p-4 rounded-xl max-w-md flex flex-col items-center text-center border border-white/30"
+                          className="glass-card p-4 rounded-xl flex flex-col items-center text-center border border-white/30"
                           initial={{ scale: 0.95, opacity: 0 }}
                           animate={animationStep === 3 ? { scale: 1, opacity: 1 } : { scale: 0.95, opacity: 0 }}
                           transition={{ duration: 0.5 }}
@@ -427,7 +427,7 @@ const Hero = () => {
                 </div>
               </div>
               
-              {/* Enhanced decorative elements */}
+              {/* Decorative elements */}
               <motion.div 
                 className="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-gradient-to-br from-primary/30 to-primary/10 blur-xl"
                 animate={{
