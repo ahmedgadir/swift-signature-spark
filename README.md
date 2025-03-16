@@ -1,3 +1,4 @@
+
 # Welcome to your Lovable project
 
 ## Project info
@@ -62,8 +63,76 @@ This project is built with .
 
 ## How can I deploy this project?
 
-Simply open [Lovable](https://lovable.dev/projects/de469d7d-620b-4fbd-9cc1-fba3586e732c) and click on Share -> Publish.
+### Deploying to Netlify
+
+1. **Create a Netlify account**
+   - Sign up at [netlify.com](https://netlify.com) if you don't have an account
+
+2. **Deploy from Git repository**
+   - Log in to Netlify
+   - Click "Add new site" > "Import an existing project"
+   - Connect to your Git provider (GitHub, GitLab, etc.)
+   - Select this repository
+   - Configure build settings:
+     - Build command: `npm run build`
+     - Publish directory: `dist`
+     - Click "Deploy site"
+
+3. **Manual deploy**
+   Alternatively, you can deploy manually:
+   ```sh
+   # Install Netlify CLI
+   npm install -g netlify-cli
+   
+   # Build your project
+   npm run build
+   
+   # Deploy to Netlify
+   netlify deploy --prod
+   ```
+
+### Connecting GoDaddy domain to Netlify
+
+1. **Add custom domain in Netlify**
+   - Go to your Netlify site dashboard
+   - Navigate to "Domain settings" or "Domain management"
+   - Click "Add custom domain"
+   - Enter your GoDaddy domain name and follow the verification steps
+
+2. **Update DNS settings in GoDaddy**
+   - Log in to your GoDaddy account
+   - Go to "My Products" > select your domain
+   - Click "DNS" or "Manage DNS"
+   - You need to configure your DNS records to point to Netlify:
+
+   **Option 1: Using Netlify nameservers (recommended)**
+   - In GoDaddy, set the nameservers to Netlify's nameservers:
+     - ns1.netlify.com
+     - ns2.netlify.com
+     - ns3.netlify.com
+     - ns4.netlify.com
+
+   **Option 2: Using GoDaddy DNS**
+   - Add an A record:
+     - Type: A
+     - Host: @ (or leave blank)
+     - Value: 75.2.60.5 (Netlify's load balancer IP)
+     - TTL: 1 hour (or default)
+   
+   - Add CNAME records for www:
+     - Type: CNAME
+     - Host: www
+     - Value: [your-netlify-site-name].netlify.app
+     - TTL: 1 hour (or default)
+
+3. **Wait for DNS propagation**
+   - DNS changes can take anywhere from a few minutes to 48 hours to propagate
+   - You can check propagation status using [whatsmydns.net](https://www.whatsmydns.net/)
+
+4. **Set up HTTPS in Netlify**
+   - Once your domain is connected, Netlify will automatically provision an SSL certificate
+   - This process is automatic but might take a few minutes
 
 ## I want to use a custom domain - is that possible?
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+Yes! Follow the instructions above in the "Connecting GoDaddy domain to Netlify" section to set up your custom domain.
